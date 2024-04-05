@@ -37,7 +37,10 @@ def validUTF8(data):
 
     # If there are remaining bytes to be read after iterating through
     # all data, it's invalid
-    if remaining_bytes or (not data):
+    if remaining_bytes:
+        return False
+
+    if not data:
         return False
 
     # If everything passes, it's a valid UTF-8 encoding
