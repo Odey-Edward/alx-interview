@@ -1,18 +1,22 @@
 #!/usr/bin/python3
-"""
-Chamge comes from within
-"""
+"""make change module"""
 
 
 def makeChange(coins, total):
-    """
-    Given a pile of cons of different values,
-    determine the fewest number of cons needed to meet a given amount total.
-    """
+    """Make change method"""
+    min_ch = [float('inf')] * (total + 1)
+
     if total <= 0:
         return 0
-    dp = [0] + [float("inf")] * (total)
-    for coin in coins:
-        for i in range(coin, total + 1):
-            dp[i] = min(dp[i], dp[i - coin] + 1)
-    return dp[-1] if dp[-1] != float("inf") else -1
+
+    min_ch[0] = 0
+
+    for v in range(1, total + 1):
+        for coin in coins:
+            if coin <= v:
+                min_ch[v] = min((min_ch[v - coin] + 1), min_ch[v])
+
+    if min_ch[total] != float('inf'):
+        return min_ch[total]
+    else:
+        return -1
