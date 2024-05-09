@@ -1,22 +1,17 @@
 #!/usr/bin/python3
-"""island_perimeter Module"""
+"""
+Island Perimeter
+"""
 
 
 def island_perimeter(grid):
-    """returns the perimeter of the island
-    described in grid"""
-    lent = len(grid) - 1
-    count = 0
-
-    for i in range(1, lent):
-        for y in range(1, len(grid[i]) - 1):
-            if grid[i][y] == 1:
-                if grid[i - 1][y] == 0:
-                    count += 1
-                if grid[i][y + 1] == 0:
-                    count += 1
-                if grid[i][y - 1] == 0:
-                    count += 1
-                if grid[i + 1][y] == 0:
-                    count += 1
-    return count
+    """
+     returns the perimeter of the island described in grid
+    :param grid:
+    :return:
+    """
+    area = 0
+    for row in grid + list(map(list, zip(*grid))):
+        for i1, i2 in zip([0] + row, row + [0]):
+            area += int(i1 != i2)
+    return area
